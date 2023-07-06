@@ -114,7 +114,7 @@ car3.increaseAverageSpeed(5);
 console.log(`Обновлённые данные для car3: возраст - ${car3.age}, ср. скорость - ${car3.averageSpeed}\n`);
 
 console.log(`Макс средняя скорость: ${CarBrand.getMaxAverageSpeed()}`);
-console.log('Отфильтрованные марки автомобилей:', CarBrand.filterByScore(200));
+console.log('Отфильтрованные марки автомобилей:', CarBrand.filterByScore(231));
 
 /** Результат работы:
 
@@ -133,7 +133,6 @@ Volvo 67 226
 Макс средняя скорость: 239
 Отфильтрованные марки автомобилей: [
   { brand: 'Toyota', age: 92, averageSpeed: 232 },
-  { brand: 'BMW', age: 73, averageSpeed: 239 },
-  { brand: 'Volvo', age: 68, averageSpeed: 231 }
+  { brand: 'BMW', age: 73, averageSpeed: 239 }
 ]
  */
