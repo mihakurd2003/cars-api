@@ -30,11 +30,7 @@ class CarBrand {
       CarBrand.MAX_AVERAGE_SPEED = averageSpeed;
     }
 
-    CarBrand.BRANDS.push({
-      brand: brand,
-      age: age,
-      averageSpeed: averageSpeed,
-    })
+    CarBrand.BRANDS.push(this);
   }
 
   static MAX_AVERAGE_SPEED = 0;
@@ -45,24 +41,12 @@ class CarBrand {
   }
 
   static filterByScore(speed) {
-    const filtered_brands = CarBrand.BRANDS.filter((brand) => brand.averageSpeed > speed);
-    return filtered_brands.length ? filtered_brands : 'Нет результатов';
-  }
-
-  #updateBrands() {
-    const foundIndex = CarBrand.BRANDS.findIndex((brand) =>
-        brand.brand === this.brand
-    )
-    CarBrand.BRANDS[foundIndex] = {
-      brand: this.brand,
-      age: this.age,
-      averageSpeed: this.averageSpeed,
-    }
+    const filteredBrands = CarBrand.BRANDS.filter((brand) => brand.averageSpeed > speed);
+    return filteredBrands.length ? filteredBrands : 'Нет результатов';
   }
 
   increaseAge() {
     this.age += 1;
-    this.#updateBrands();
   }
 
   increaseAverageSpeed(speed) {
@@ -71,7 +55,10 @@ class CarBrand {
     if (this.averageSpeed > CarBrand.MAX_AVERAGE_SPEED) {
       CarBrand.MAX_AVERAGE_SPEED = this.averageSpeed;
     }
-    this.#updateBrands();
+    const foundIndex = CarBrand.BRANDS.findIndex((brand) =>
+        brand.brand === this.brand
+    )
+    CarBrand.BRANDS[foundIndex] = this;
   }
 
   getCarType() {
