@@ -324,9 +324,6 @@ export default {
   margin: 0 auto 20px;
 }
 
-.btn-success {
-  margin: 0 auto 0 !important;
-}
 
 select {
   border: 1px solid #ffffff;

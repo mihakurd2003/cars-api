@@ -128,6 +128,7 @@ export default {
 </script>
 
 <style scoped>
+
 .dialog-enter-active, .dialog-leave-active {
   transition: all 1s;
 }

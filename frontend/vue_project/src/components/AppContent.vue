@@ -1,11 +1,11 @@
 <template>
   <div>
-    <div>
-      <div class="app-actions choose-link">
-        <a class="inline-link" @click="activeTab = 'cars'">Авто</a>
-        <a class="inline-link" @click="activeTab = 'carParts'">Запчасти</a>
-        <a class="inline-link" @click="activeTab = 'countries'">Страны</a>
-      </div>
+    <div class="app-actions choose-link">
+      <a class="inline-link" @click="activeTab = 'cars'">Авто</a>
+      <a class="inline-link" @click="activeTab = 'carParts'">Запчасти</a>
+      <a class="inline-link" @click="activeTab = 'countries'">Страны</a>
+    </div>
+    <div class="main-block">
       <div>
         <div v-if="activeTab === 'cars'">
           <app-dialog v-model="createFormVisible">
@@ -164,14 +164,20 @@ export default {
         if (this.activeTab === 'cars') {
           this.$myAxios.delete(`api/cars/${obj.id}`).then(() => {
             this.cars = this.cars.filter(car => car.id !== obj.id)
+          }).catch(reject => {
+            console.log(reject.response.data)
           })
         } else if (this.activeTab === 'carParts') {
           this.$myAxios.delete(`api/car-parts/${obj.id}`).then(() => {
             this.carParts = this.carParts.filter(carPart => carPart.id !== obj.id)
+          }).catch(reject => {
+            console.log(reject.response.data)
           })
         } else {
           this.$myAxios.delete(`api/countries/${obj.id}`).then(() => {
             this.countries = this.countries.filter(country => country.id !== obj.id)
+          }).catch(reject => {
+            console.log(reject.response.data)
           })
         }
 
@@ -226,14 +232,26 @@ export default {
 </script>
 
 <style scoped>
+
+.main-block {
+
+}
+
 .app-actions {
   display: flex;
   margin-top: 15px;
 }
 
 .choose-link {
-  justify-content: space-between;
-  margin: 10px 50px 10px 50px;
+  justify-content: space-around;
+  margin-top: 5px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 65%;
+  padding: 10px 5px 10px 5px;
+  backdrop-filter: blur(10px);
+  border-radius: 10px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2), 0 2px 4px rgba(0, 0, 0, 0.4);
 }
 
 .search-input {

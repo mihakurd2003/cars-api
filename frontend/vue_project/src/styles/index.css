@@ -27,6 +27,8 @@ select.app-input {
 .btn-success {
     background-color: #e2fae2 !important;
     border: 1px solid #53cc2a !important;
+    font-size: 1em !important;
+    margin: 0 auto 0 !important;
 }
 
 .btn-success:hover, .btn-success:focus {

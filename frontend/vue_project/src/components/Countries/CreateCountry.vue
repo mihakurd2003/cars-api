@@ -36,6 +36,9 @@
           />
 
           <app-button class="btn-success">Добавить</app-button>
+          <small class="helper-text" v-if="error">
+            Уникальность записей нарушена
+          </small>
         </form>
       </div>
     </transition>
@@ -61,7 +64,8 @@ export default {
         phoneCode: 'Телефонный код',
       },
       type: 'text',
-      showDialog: false
+      showDialog: false,
+      error: '',
     }
   },
   validations: {
@@ -84,6 +88,8 @@ export default {
         Object.keys(this.country).forEach((key) => {
           this.country[key] = ''
         })
+      }).catch(reject => {
+        this.error = reject.response.data
       })
     },
   },
@@ -94,6 +100,10 @@ export default {
 </script>
 
 <style scoped>
+.helper-text {
+  margin-top: 5px;
+}
+
 .dialog-enter-active, .dialog-leave-active {
   transition: all 1s;
 }
