@@ -17,8 +17,7 @@ export default {
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
   transition: border 0.2s linear 0s, box-shadow 0.2s linear 0s;
   border-radius: 8px;
-  color: #555555;
-  display: block;
+  color: #000000;
   width: 120px;
   font-size: 14px;
   text-align: center;
