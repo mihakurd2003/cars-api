@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.validators import MinValueValidator
 
 
 class Car(models.Model):
@@ -13,6 +14,7 @@ class Car(models.Model):
     price = models.IntegerField(
         'Цена',
         db_index=True,
+        validators=[MinValueValidator(0)],
     )
     country = models.ForeignKey(
         'Country',
@@ -48,6 +50,7 @@ class Country(models.Model):
     phone_code = models.IntegerField(
         'Телефонный код',
         unique=True,
+        validators=[MinValueValidator(0)]
     )
 
     class Meta:

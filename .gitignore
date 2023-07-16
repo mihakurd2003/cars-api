@@ -141,3 +141,6 @@ cython_debug/
 .idea
 *.sqlite3
 static/
+
+docs/_book
+test/
