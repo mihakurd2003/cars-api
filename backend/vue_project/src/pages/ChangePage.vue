@@ -282,13 +282,6 @@ export default {
     refactorObj(object) {
       if (this.model === 'cars') {
         object.carParts = object.spare_parts
-
-        // const updatedCarParts = [];
-        //   for (let part of this.carParts) {
-        //     if (obj.carParts.includes(part.id)) {
-        //       updatedCarParts.push(part.name)
-        //     }
-        //   }
       }
       if (this.model === 'countries') {
         object.phoneCode = object.phone_code
