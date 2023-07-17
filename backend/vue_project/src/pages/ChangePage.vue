@@ -49,112 +49,119 @@
                 {{ country.name }}
               </option>
             </select>
+            <div class="input-login" style="border-bottom: none">
+              <select
+                  required
+                  multiple="multiple"
+                  :size="5"
+                  v-model="car.carParts"
+                  style="height: auto; margin-top: -10px"
+              >
+                <option style="color: #2c2b2b" value="" disabled>Запчасти</option>
+                <option
+                    v-for="carPart in objects['car-parts']"
+                    :key="carPart.id"
+                    :value="carPart.id"
+                >
+                  {{ carPart.name }}
+                </option>
+              </select>
+            </div>
+            <app-button class="btn-success">Изменить</app-button>
+          </form>
+        </div>
+
+        <div class="form-box login" v-if="model === 'car-parts'">
+          <h2>Изменить запчасть</h2>
+          <form @submit.prevent="changeCarPart">
             <div class="input-login">
               <app-input required
                          :type="type"
-                         v-model.trim="car.carParts"
-                         :class="{'invalid-wiggle': ($v.car.carParts.$dirty && !$v.car.carParts.validFormat) || error}"
+                         v-model.trim="carPart.name"
+                         :class="{'invalid-wiggle': ($v.carPart.name.$dirty && !$v.carPart.name.maxLength)}"
               />
-              <label>{{ placeholder.car.carParts }}</label>
-              <small class="helper-text" v-if="($v.car.carParts.$dirty && !$v.car.carParts.validFormat) || error">
-                Некорректный ввод: нужны числа(id) через запятую или id не найден
+              <label>{{ placeholder.carPart.name }}</label>
+              <small class="helper-text" v-if="($v.carPart.name.$dirty && !$v.carPart.name.maxLength)">
+                Длина превышает 100 символов
+              </small>
+            </div>
+            <div class="input-login">
+              <app-input required
+                         :type="type"
+                         v-model.trim="carPart.brand"
+                         :class="{'invalid-wiggle': ($v.carPart.brand.$dirty && !$v.carPart.brand.maxLength)}"
+              />
+              <label>{{ placeholder.carPart.brand }}</label>
+              <small class="helper-text" v-if="($v.carPart.brand.$dirty && !$v.carPart.brand.maxLength)">
+                Длина превышает 30 символов
+              </small>
+            </div>
+            <div class="input-login">
+              <app-input required
+                         :type="type"
+                         v-model.number="carPart.price"
+                         :class="{'invalid-wiggle': ($v.carPart.price.$dirty && !$v.carPart.price.minValue)}"
+              />
+              <label>{{ placeholder.carPart.price }}</label>
+              <small class="helper-text" v-if="($v.carPart.price.$dirty && !$v.carPart.price.minValue)">
+                Значение должно быть положительным
+              </small>
+            </div>
+            <select required v-model="carPart.country" class="app-input">
+              <option disabled>Выберите из списка</option>
+              <option
+                  v-for="country in objects.countries"
+                  :key="country.id"
+                  :value="country.id"
+              >
+                {{ country.name }}
+              </option>
+            </select>
+            <app-button class="btn-success">Изменить</app-button>
+          </form>
+        </div>
+
+        <div class="form-box login" v-if="model === 'countries'">
+          <h2>Изменить страну</h2>
+          <form class="app-form" @submit.prevent="changeCountry">
+            <div class="input-login">
+              <app-input required
+                         :type="type"
+                         v-model.trim="country.name"
+                         :class="{'invalid-wiggle': ($v.country.name.$dirty && !$v.country.name.maxLength)}"
+              />
+              <label>{{ placeholder.country.name }}</label>
+              <small class="helper-text" v-if="($v.country.name.$dirty && !$v.country.name.maxLength)">
+                Длина превышает 30 символов
+              </small>
+            </div>
+            <div class="input-login">
+              <app-input required
+                         :type="type"
+                         v-model.trim="country.capital"
+                         :class="{'invalid-wiggle': ($v.country.capital.$dirty && !$v.country.capital.maxLength)}"
+              />
+              <label>{{ placeholder.country.capital }}</label>
+              <small class="helper-text" v-if="($v.country.capital.$dirty && !$v.country.capital.maxLength)">
+                Длина превышает 30 символов
+              </small>
+            </div>
+            <div class="input-login">
+              <app-input required
+                         :type="type"
+                         v-model.number="country.phoneCode"
+                         :class="{'invalid-wiggle': ($v.country.phoneCode.$dirty && !$v.country.phoneCode.minValue)}"
+              />
+              <label>{{ placeholder.country.phoneCode }}</label>
+              <small class="helper-text" v-if="($v.country.phoneCode.$dirty && !$v.country.phoneCode.minValue)">
+                Значение должно быть положительным
               </small>
             </div>
             <app-button class="btn-success">Изменить</app-button>
           </form>
         </div>
 
-         <div class="form-box login" v-if="model === 'car-parts'">
-        <h2>Изменить запчасть</h2>
-        <form @submit.prevent="changeCarPart">
-          <div class="input-login">
-            <app-input required
-                       :type="type"
-                       v-model.trim="carPart.name"
-                       :class="{'invalid-wiggle': ($v.carPart.name.$dirty && !$v.carPart.name.maxLength)}"
-            />
-            <label>{{ placeholder.carPart.name }}</label>
-            <small class="helper-text" v-if="($v.carPart.name.$dirty && !$v.carPart.name.maxLength)">
-              Длина превышает 100 символов
-            </small>
-          </div>
-          <div class="input-login">
-            <app-input required
-                       :type="type"
-                       v-model.trim="carPart.brand"
-                       :class="{'invalid-wiggle': ($v.carPart.brand.$dirty && !$v.carPart.brand.maxLength)}"
-            />
-            <label>{{ placeholder.carPart.brand }}</label>
-            <small class="helper-text" v-if="($v.carPart.brand.$dirty && !$v.carPart.brand.maxLength)">
-              Длина превышает 30 символов
-            </small>
-          </div>
-          <div class="input-login">
-            <app-input required
-                       :type="type"
-                       v-model.number="carPart.price"
-                       :class="{'invalid-wiggle': ($v.carPart.price.$dirty && !$v.carPart.price.minValue)}"
-            />
-            <label>{{ placeholder.carPart.price }}</label>
-            <small class="helper-text" v-if="($v.carPart.price.$dirty && !$v.carPart.price.minValue)">
-              Значение должно быть положительным
-            </small>
-          </div>
-          <select required v-model="carPart.country" class="app-input">
-            <option disabled>Выберите из списка</option>
-            <option
-                v-for="country in objects.countries"
-                :key="country.id"
-                :value="country.id"
-            >
-              {{ country.name }}
-            </option>
-          </select>
-          <app-button class="btn-success">Изменить</app-button>
-        </form>
       </div>
-
-        <div class="form-box login" v-if="model === 'countries'">
-        <h2>Изменить страну</h2>
-        <form class="app-form" @submit.prevent="changeCountry">
-          <div class="input-login">
-            <app-input required
-                       :type="type"
-                       v-model.trim="country.name"
-                       :class="{'invalid-wiggle': ($v.country.name.$dirty && !$v.country.name.maxLength)}"
-            />
-            <label>{{ placeholder.country.name }}</label>
-            <small class="helper-text" v-if="($v.country.name.$dirty && !$v.country.name.maxLength)">
-              Длина превышает 30 символов
-            </small>
-          </div>
-          <div class="input-login">
-            <app-input required
-                       :type="type"
-                       v-model.trim="country.capital"
-                       :class="{'invalid-wiggle': ($v.country.capital.$dirty && !$v.country.capital.maxLength)}"
-            />
-            <label>{{ placeholder.country.capital }}</label>
-            <small class="helper-text" v-if="($v.country.capital.$dirty && !$v.country.capital.maxLength)">
-              Длина превышает 30 символов
-            </small>
-          </div>
-          <div class="input-login">
-            <app-input required
-                       :type="type"
-                       v-model.number="country.phoneCode"
-                       :class="{'invalid-wiggle': ($v.country.phoneCode.$dirty && !$v.country.phoneCode.minValue)}"
-            />
-            <label>{{ placeholder.country.phoneCode }}</label>
-            <small class="helper-text" v-if="($v.country.phoneCode.$dirty && !$v.country.phoneCode.minValue)">
-              Значение должно быть положительным
-            </small>
-          </div>
-          <app-button class="btn-success">Изменить</app-button>
-        </form>
-      </div>
-
-    </div>
     </transition>
   </div>
 </template>
@@ -172,7 +179,7 @@ export default {
         model: '',
         price: '',
         country: '',
-        carParts: '',
+        carParts: [],
       },
       carPart: {
         name: '',
@@ -216,9 +223,6 @@ export default {
       brand: {maxLength: maxLength(50)},
       model: {maxLength: maxLength(50)},
       price: {minValue: minValue(0)},
-      carParts: {
-        validFormat: val => /^\d+(,\d+)*$/.test(val)
-      },
     },
     carPart: {
       name: {maxLength: maxLength(100)},
@@ -238,7 +242,7 @@ export default {
         return
       }
       const car = JSON.parse(JSON.stringify(this.car))
-      car.spare_parts = this.car.carParts.split(',').map(el => parseInt(el))
+      car.spare_parts = this.car.carParts
       this.$myAxios.put(`api/cars/${this.id}/`, car).then(() => {
         Object.keys(this.car).forEach((key) => {
           this.car[key] = ''
@@ -253,7 +257,6 @@ export default {
         this.$v.carPart.$touch()
         return
       }
-
       const carPart = JSON.parse(JSON.stringify(this.carPart))
       this.$myAxios.put(`api/car-parts/${this.id}/`, carPart).then(() => {
         Object.keys(this.carPart).forEach((key) => {
@@ -278,7 +281,14 @@ export default {
     },
     refactorObj(object) {
       if (this.model === 'cars') {
-        object.carParts = object.spare_parts.join(',')
+        object.carParts = object.spare_parts
+
+        // const updatedCarParts = [];
+        //   for (let part of this.carParts) {
+        //     if (obj.carParts.includes(part.id)) {
+        //       updatedCarParts.push(part.name)
+        //     }
+        //   }
       }
       if (this.model === 'countries') {
         object.phoneCode = object.phone_code
@@ -288,7 +298,9 @@ export default {
   },
   beforeMount() {
     this.$store.dispatch('car/getList', 'countries')
+    this.$store.dispatch('car/getList', 'car-parts')
     this.objects = this.$store.getters["car/getData"]
+    console.log(this.objects)
   },
   mounted() {
     if (this.model === 'cars') {
@@ -317,7 +329,7 @@ export default {
 
 .wrapper {
   width: 570px !important;
-  height: 570px !important;
+  height: 610px !important;
 }
 
 .form-box h2 {
@@ -345,6 +357,11 @@ select {
   pointer-events: none;
   transition: .3s;
   color: #e5ffca;
+}
+
+.app-btn {
+  position: absolute;
+  margin: 30px 190px 0 180px !important;
 }
 
 .block-enter-active, .block-leave-active {

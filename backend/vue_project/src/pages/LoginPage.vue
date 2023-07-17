@@ -61,7 +61,7 @@ export default {
 .wrapper {
   position: relative;
   width: 500px;
-  height: 480px;
+  height: auto;
   margin: 170px auto 250px;
   background: transparent;
   border: 2px solid #3aa629;

@@ -9,11 +9,11 @@
       <div>
         <div v-if="activeTab === 'cars'">
           <app-dialog v-model="createFormVisible">
-            <create-car @create="addObj" :countries="countries"></create-car>
+            <create-car @create="addObj" :countries="countries" :carParts="carParts"></create-car>
           </app-dialog>
           <div class="app-actions">
             <app-select v-model="selectedSort" :options="sortOptions.car"></app-select>
-            <app-input class="search-input" v-model="searchText"></app-input>
+            <input placeholder="Поиск" class="search-input" v-model="searchText">
             <app-button
                 @click="createFormVisible=true"
                 style="margin-left: auto; margin-right: 10px"
@@ -32,7 +32,7 @@
           </app-dialog>
           <div class="app-actions">
             <app-select v-model="selectedSort" :options="sortOptions.carPart"></app-select>
-            <app-input class="search-input" v-model="searchText"></app-input>
+            <input placeholder="Поиск" class="search-input" v-model="searchText">
             <app-button
                 @click="createFormVisible=true"
                 style="margin-left: auto; margin-right: 10px"
@@ -51,7 +51,7 @@
           </app-dialog>
           <div class="app-actions">
             <app-select v-model="selectedSort" :options="sortOptions.country"></app-select>
-            <app-input class="search-input" v-model="searchText"></app-input>
+            <input placeholder="Поиск" class="search-input" v-model="searchText">
             <app-button
                 @click="createFormVisible=true"
                 style="margin-left: auto; margin-right: 10px"
@@ -232,10 +232,6 @@ export default {
 </script>
 
 <style scoped>
-
-.main-block {
-
-}
 
 .app-actions {
   display: flex;

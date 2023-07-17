@@ -3,58 +3,65 @@
     <transition name="dialog">
       <div v-show="showDialog">
         <form class="app-form" @submit.prevent="addCar">
-        <h3>Добавить автомобиль</h3>
-        <small class="helper-text" v-if="($v.car.brand.$dirty && !$v.car.brand.maxLength)">
-          Длина превышает 50 символов
-        </small>
-        <app-input required
-                   :type="type"
-                   :placeholder="placeholder.brand"
-                   :class="['app-input', {'invalid-wiggle': ($v.car.brand.$dirty && !$v.car.brand.maxLength)}]"
-                   v-model.trim="car.brand"
-        />
+          <h3>Добавить автомобиль</h3>
+          <small class="helper-text" v-if="($v.car.brand.$dirty && !$v.car.brand.maxLength)">
+            Длина превышает 50 символов
+          </small>
+          <app-input required
+                     :type="type"
+                     :placeholder="placeholder.brand"
+                     :class="['app-input', {'invalid-wiggle': ($v.car.brand.$dirty && !$v.car.brand.maxLength)}]"
+                     v-model.trim="car.brand"
+          />
 
-        <small class="helper-text" v-if="($v.car.model.$dirty && !$v.car.model.maxLength)">
-          Длина превышает 50 символов
-        </small>
-        <app-input required
-                   :type="type"
-                   :placeholder="placeholder.model"
-                   :class="['app-input', {'invalid-wiggle': ($v.car.model.$dirty && !$v.car.model.maxLength)}]"
-                   v-model.trim="car.model"
-        />
+          <small class="helper-text" v-if="($v.car.model.$dirty && !$v.car.model.maxLength)">
+            Длина превышает 50 символов
+          </small>
+          <app-input required
+                     :type="type"
+                     :placeholder="placeholder.model"
+                     :class="['app-input', {'invalid-wiggle': ($v.car.model.$dirty && !$v.car.model.maxLength)}]"
+                     v-model.trim="car.model"
+          />
 
-        <small class="helper-text" v-if="($v.car.price.$dirty && !$v.car.price.minValue)">
-          Значение должно быть положительным
-        </small>
-        <app-input required
-                   :type="type"
-                   :placeholder="placeholder.price"
-                   :class="['app-input', {'invalid-wiggle': ($v.car.price.$dirty && !$v.car.price.minValue)}]"
-                   v-model.number="car.price"
-        />
-        <select required v-model.number="car.country" class="app-input">
-          <option value="" disabled>Страны</option>
-          <option
-              v-for="country in countries"
-              :key="country.id"
-              :value="country.id"
+          <small class="helper-text" v-if="($v.car.price.$dirty && !$v.car.price.minValue)">
+            Значение должно быть положительным
+          </small>
+          <app-input required
+                     :type="type"
+                     :placeholder="placeholder.price"
+                     :class="['app-input', {'invalid-wiggle': ($v.car.price.$dirty && !$v.car.price.minValue)}]"
+                     v-model.number="car.price"
+          />
+          <select required v-model.number="car.country" class="app-input">
+            <option value="" disabled>Страны</option>
+            <option
+                v-for="country in countries"
+                :key="country.id"
+                :value="country.id"
+            >
+              {{ country.name }}
+            </option>
+          </select>
+
+          <select
+              required
+              multiple="multiple"
+              :size="5"
+              v-model.number="car.carParts"
+              style="margin-bottom: 7px"
           >
-            {{ country.name }}
-          </option>
-        </select>
-
-        <small class="helper-text" v-if="($v.car.carParts.$dirty && !$v.car.carParts.validFormat) || error">
-          Некорректный ввод: нужны числа(id) через запятую или id не найден
-        </small>
-        <app-input required
-                   :type="type"
-                   :placeholder="placeholder.carParts"
-                   :class="['app-input', {'invalid-wiggle': ($v.car.carParts.$dirty && !$v.car.carParts.validFormat) || error}]"
-                   v-model.trim="car.carParts"
-        />
-        <app-button class="btn-success">Добавить</app-button>
-      </form>
+            <option value="" disabled>Запчасти</option>
+            <option
+                v-for="carPart in carParts"
+                :key="carPart.id"
+                :value="carPart.id"
+            >
+              {{ carPart.name }}
+            </option>
+          </select>
+          <app-button class="btn-success">Добавить</app-button>
+        </form>
       </div>
     </transition>
   </div>
@@ -69,7 +76,11 @@ export default {
     countries: {
       type: Array,
       default: () => []
-    }
+    },
+    carParts: {
+      type: Array,
+      default: () => []
+    },
   },
   data() {
     return {
@@ -78,7 +89,7 @@ export default {
         model: '',
         price: '',
         country: '',
-        carParts: '',
+        carParts: [],
       },
       placeholder: {
         brand: 'Марка',
@@ -97,9 +108,6 @@ export default {
       brand: {maxLength: maxLength(50)},
       model: {maxLength: maxLength(50)},
       price: {minValue: minValue(0)},
-      carParts: {
-        validFormat: val => /^\d+(,\d+)*$/.test(val)
-      },
     }
   },
   methods: {
@@ -109,7 +117,7 @@ export default {
         return
       }
       const car = JSON.parse(JSON.stringify(this.car))
-      car.spare_parts = this.car.carParts.split(',')
+      car.spare_parts = this.car.carParts
       this.$myAxios.post('api/cars/', car).then((response) => {
         this.$emit('create', response.data)
         Object.keys(this.car).forEach((key) => {

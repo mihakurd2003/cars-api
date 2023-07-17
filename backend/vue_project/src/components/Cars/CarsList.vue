@@ -2,7 +2,6 @@
   <div>
     <div v-show="cars.length > 0">
       <div>
-
         <table id="app-table">
           <caption>Автомобили</caption>
           <thead is="transition-group" name="cars-list">
@@ -84,8 +83,7 @@ export default {
   },
   data() {
     return {}
-  }
-
+  },
 }
 </script>
 
@@ -113,7 +111,7 @@ export default {
 
 .cars-list-enter, .cars-list-leave-to {
   opacity: 0;
-  transform: translateY(50px);
+  transform: translateY(-10px);
 }
 
 .cars-list-move {
@@ -126,7 +124,7 @@ export default {
 
 .without-cars-enter, .without-cars-leave-to {
   opacity: 0;
-  transform: translateY(-50px);
+  transform: translateY(10px);
 }
 
 </style>
