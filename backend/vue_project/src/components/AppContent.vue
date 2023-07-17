@@ -216,15 +216,15 @@ export default {
     },
   },
   mounted() {
-    this.$myAxios.get('api/cars').then(response => {
+    this.$myAxios.get('api/cars/').then(response => {
       this.cars = response.data
     })
 
-    this.$myAxios.get('api/car-parts').then(response => {
+    this.$myAxios.get('api/car-parts/').then(response => {
       this.carParts = response.data
     })
 
-    this.$myAxios.get('api/countries').then(response => {
+    this.$myAxios.get('api/countries/').then(response => {
       this.countries = response.data
     })
   }
