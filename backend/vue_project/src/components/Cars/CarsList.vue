@@ -63,7 +63,7 @@
     <transition name="without-cars">
       <div v-show="cars.length === 0" class="no-items">
         <div class="item-content">
-          <img class="image" src="../../images/bmw.jpg" alt="Car">
+          <img class="image" src="../../images/cars.jpg" alt="Car">
         </div>
         <div class="text-content">
           <h2>Нет записей</h2>
