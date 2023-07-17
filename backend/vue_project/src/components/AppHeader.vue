@@ -44,7 +44,6 @@ export default {
   display: flex;
   justify-content: space-around;
   border-radius: 5px;
-  backdrop-filter: blur(5px);
   box-shadow: 0 3px 10px 0 rgba(0, 0, 0, 0.6);
 }
 
