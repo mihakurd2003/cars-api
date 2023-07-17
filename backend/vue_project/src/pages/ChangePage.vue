@@ -292,15 +292,15 @@ export default {
   },
   mounted() {
     if (this.model === 'cars') {
-      this.$myAxios.get(`api/${this.model}/${this.id}`).then(response => {
+      this.$myAxios.get(`api/${this.model}/${this.id}/`).then(response => {
         this.car = this.refactorObj(response.data)
       })
     } else if (this.model === 'car-parts') {
-      this.$myAxios.get(`api/${this.model}/${this.id}`).then(response => {
+      this.$myAxios.get(`api/${this.model}/${this.id}/`).then(response => {
         this.carPart = this.refactorObj(response.data)
       })
     } else {
-      this.$myAxios.get(`api/${this.model}/${this.id}`).then(response => {
+      this.$myAxios.get(`api/${this.model}/${this.id}/`).then(response => {
         this.country = this.refactorObj(response.data)
       })
     }

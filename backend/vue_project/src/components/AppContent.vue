@@ -162,19 +162,19 @@ export default {
       if (confirm('Вы действительно хотите удалить запись?')) {
 
         if (this.activeTab === 'cars') {
-          this.$myAxios.delete(`api/cars/${obj.id}`).then(() => {
+          this.$myAxios.delete(`api/cars/${obj.id}/`).then(() => {
             this.cars = this.cars.filter(car => car.id !== obj.id)
           }).catch(reject => {
             console.log(reject.response.data)
           })
         } else if (this.activeTab === 'carParts') {
-          this.$myAxios.delete(`api/car-parts/${obj.id}`).then(() => {
+          this.$myAxios.delete(`api/car-parts/${obj.id}/`).then(() => {
             this.carParts = this.carParts.filter(carPart => carPart.id !== obj.id)
           }).catch(reject => {
             console.log(reject.response.data)
           })
         } else {
-          this.$myAxios.delete(`api/countries/${obj.id}`).then(() => {
+          this.$myAxios.delete(`api/countries/${obj.id}/`).then(() => {
             this.countries = this.countries.filter(country => country.id !== obj.id)
           }).catch(reject => {
             console.log(reject.response.data)

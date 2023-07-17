@@ -55,7 +55,7 @@ export const carsStore = {
     },
     async getList(context, id) {
       try {
-        let response = await Vue.prototype.$myAxios.get(`api/${id}`)
+        let response = await Vue.prototype.$myAxios.get(`api/${id}/`)
         let array = response.data
         context.commit('updateList', {array, id})
       } catch (err) {
@@ -64,7 +64,7 @@ export const carsStore = {
     },
     async getObj(context, {model, id}) {
       try {
-        let response = await Vue.prototype.$myAxios.get(`api/${model}/${id}`)
+        let response = await Vue.prototype.$myAxios.get(`api/${model}/${id}/`)
         let obj = response.data
         context.commit('updateObj', {obj, model})
       } catch (err) {
