@@ -353,7 +353,6 @@ select {
 }
 
 .app-btn {
-  position: absolute;
   margin: 30px 190px 0 180px !important;
 }
 

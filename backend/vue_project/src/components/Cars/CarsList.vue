@@ -17,43 +17,16 @@
 
           <tbody is="transition-group" name="cars-list">
           <tr v-for="car in cars" :key="car.id">
-
-            <td>
-              <router-link class="inline-link" :to="{name: 'change', params: {model: 'cars', id: car.id}}">
-                {{ car.id }}
-              </router-link>
-            </td>
-            <td>
-              <router-link class="inline-link" :to="{name: 'change', params: {model: 'cars', id: car.id}}">
-                {{ car.brand }}
-              </router-link>
-            </td>
-            <td>
-              <router-link class="inline-link" :to="{name: 'change', params: {model: 'cars', id: car.id}}">
-                {{ car.model }}
-              </router-link>
-            </td>
-            <td>
-              <router-link class="inline-link" :to="{name: 'change', params: {model: 'cars', id: car.id}}">
-                {{ car.price }}
-              </router-link>
-            </td>
-            <td>
-              <router-link class="inline-link" :to="{name: 'change', params: {model: 'cars', id: car.id}}">
-                {{ car.country.name }}
-              </router-link>
-            </td>
-            <td>
-              <router-link class="inline-link" :to="{name: 'change', params: {model: 'cars', id: car.id}}">
-                {{ car.carParts }}
-              </router-link>
-            </td>
+            <td>{{ car.id }}</td>
+            <td>{{ car.brand }}</td>
+            <td>{{ car.model }}</td>
+            <td>{{ car.price }}</td>
+            <td>{{ car.country.name }}</td>
+            <td>{{ car.carParts }}</td>
             <td class="delete-buttons">
-              <div>
-                <span @click="$emit('remove', car)" class="delete-button">&#x2716;</span>
-              </div>
+              <span @click="openChangePage(car.id)" class="change-button fa fa-edit inline-link"></span>
+              <span @click="$emit('remove', car)" class="delete-button inline-link">&#x2718;</span>
             </td>
-
           </tr>
           </tbody>
         </table>
@@ -84,6 +57,11 @@ export default {
   data() {
     return {}
   },
+  methods: {
+    openChangePage(idCar) {
+      this.$router.push(`/change/cars/${idCar}`)
+    }
+  }
 }
 </script>
 
@@ -91,14 +69,12 @@ export default {
 
 .inline-link {
   top: 0;
-  color: black !important;
   font-size: 1em !important;
-  transform: translateY(-50%);
   transition: .2s;
 }
 
 .inline-link::after {
-  background: black !important;
+  background: #eee !important;
 }
 
 .inline-link:hover {

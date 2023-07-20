@@ -14,28 +14,13 @@
           </thead>
           <tbody is="transition-group" name="countries-list">
           <tr v-for="country in countries" :key="country.id">
-            <td>
-              <router-link class="inline-link" :to="{name: 'change', params: {model: 'countries', id: country.id}}">
-                {{ country.id }}
-              </router-link>
-            </td>
-            <td>
-              <router-link class="inline-link" :to="{name: 'change', params: {model: 'countries', id: country.id}}">
-                {{ country.name }}
-              </router-link>
-            </td>
-            <td>
-              <router-link class="inline-link" :to="{name: 'change', params: {model: 'countries', id: country.id}}">
-                {{ country.capital }}
-              </router-link>
-            </td>
-            <td>
-              <router-link class="inline-link" :to="{name: 'change', params: {model: 'countries', id: country.id}}">
-                {{ country.phoneCode }}
-              </router-link>
-            </td>
+            <td>{{ country.id }}</td>
+            <td>{{ country.name }}</td>
+            <td>{{ country.capital }}</td>
+            <td>{{ country.phoneCode }}</td>
             <td class="delete-buttons">
-              <span @click="$emit('remove', country)" class="delete-button">&#x2716;</span>
+              <span @click="openChangePage(country.id)" class="change-button fa fa-edit inline-link"></span>
+              <span @click="$emit('remove', country)" class="delete-button inline-link">&#x2718;</span>
             </td>
           </tr>
           </tbody>
@@ -63,6 +48,11 @@ export default {
       type: Array,
       required: true,
     }
+  },
+  methods: {
+    openChangePage(idCountry) {
+      this.$router.push(`/change/countries/${idCountry}`)
+    }
   }
 }
 </script>
@@ -70,14 +60,12 @@ export default {
 <style scoped>
 .inline-link {
   top: 0;
-  color: black !important;
   font-size: 1em !important;
-  transform: translateY(-50%);
   transition: .2s;
 }
 
 .inline-link::after {
-  background: black !important;
+  background: #eee !important;
 }
 
 .inline-link:hover {

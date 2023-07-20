@@ -23,7 +23,7 @@ export default {
 }
 
 .main-block {
-  width: 65%;
+  width: 75%;
   margin-top: 5px;
   margin-left: auto;
   margin-right: auto;
@@ -213,6 +213,13 @@ table#app-table tbody tr:not(:last-child) {
   font-size: 1.6rem;
   color: #ff0000;
   cursor: pointer;
+}
+
+.change-button {
+  font-size: 1.1rem;
+  color: rgb(70, 250, 3);
+  cursor: pointer;
+  margin-right: 5px;
 }
 
 @keyframes wiggle {

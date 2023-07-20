@@ -15,33 +15,14 @@
           </thead>
           <tbody is="transition-group" name="car-parts-list">
           <tr v-for="carPart in carParts" :key="carPart.id">
-            <td>
-              <router-link class="inline-link" :to="{name: 'change', params: {model: 'car-parts', id: carPart.id}}">
-                {{ carPart.id }}
-              </router-link>
-            </td>
-            <td>
-              <router-link class="inline-link" :to="{name: 'change', params: {model: 'car-parts', id: carPart.id}}">
-                {{ carPart.name }}
-              </router-link>
-            </td>
-            <td>
-              <router-link class="inline-link" :to="{name: 'change', params: {model: 'car-parts', id: carPart.id}}">
-                {{ carPart.brand }}
-              </router-link>
-            </td>
-            <td>
-              <router-link class="inline-link" :to="{name: 'change', params: {model: 'car-parts', id: carPart.id}}">
-                {{ carPart.price }}
-              </router-link>
-            </td>
-            <td>
-              <router-link class="inline-link" :to="{name: 'change', params: {model: 'car-parts', id: carPart.id}}">
-                {{ carPart.country.name }}
-              </router-link>
-            </td>
+            <td>{{ carPart.id }}</td>
+            <td>{{ carPart.name }}</td>
+            <td>{{ carPart.brand }}</td>
+            <td>{{ carPart.price }}</td>
+            <td>{{ carPart.country.name }}</td>
             <td class="delete-buttons">
-              <span @click="$emit('remove', carPart)" class="delete-button">&#x2716;</span>
+              <span @click="openChangePage(carPart.id)" class="change-button fa fa-edit inline-link"></span>
+              <span @click="$emit('remove', carPart)" class="delete-button inline-link">&#x2718;</span>
             </td>
           </tr>
           </tbody>
@@ -68,6 +49,15 @@ export default {
     carParts: {
       type: Array,
       required: true,
+    },
+    isEnterDelete: Boolean
+  },
+  data() {
+    return {}
+  },
+  methods: {
+    openChangePage(idCarPart) {
+      this.$router.push(`/change/car-parts/${idCarPart}`)
     }
   }
 }
@@ -76,14 +66,12 @@ export default {
 <style scoped>
 .inline-link {
   top: 0;
-  color: black !important;
   font-size: 1em !important;
-  transform: translateY(-50%);
   transition: .2s;
 }
 
 .inline-link::after {
-  background: black !important;
+  background: #eee !important;
 }
 
 .inline-link:hover {

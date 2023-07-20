@@ -41,7 +41,7 @@
             </app-button>
           </div>
           <transition name="block">
-            <car-parts-list :carParts="sortedAndSearched" @remove="removeObj"></car-parts-list>
+            <car-parts-list :carParts="sortedAndSearched" @remove="removeObj" :is-enter-delete="isEnterDelete"></car-parts-list>
           </transition>
         </div>
 
@@ -94,6 +94,7 @@ export default {
       createFormVisible: false,
       selectedSort: '',
       searchText: '',
+      isEnterDelete: false,
       sortOptions: {
         car: [
           {value: 'id', name: 'По идентификатору'},
@@ -159,6 +160,7 @@ export default {
       this.createFormVisible = false
     },
     removeObj(obj) {
+      this.isEnterDelete = true
       if (confirm('Вы действительно хотите удалить запись?')) {
 
         if (this.activeTab === 'cars') {
@@ -243,7 +245,7 @@ export default {
   margin-top: 5px;
   margin-left: auto;
   margin-right: auto;
-  width: 65%;
+  width: 75%;
   padding: 10px 5px 10px 5px;
   backdrop-filter: blur(10px);
   border-radius: 10px;
